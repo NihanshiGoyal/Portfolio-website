@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nihanshi Goyal | Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Lenis for Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F1EA;
+            color: #1F1F1F;
+            overflow-x: hidden;
+        }
+
+        .canvas-container {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .selection-orange::selection {
+            background-color: #FF8A00;
+            color: white;
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        body {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        
+        .perspective-1500 {
+            perspective: 1500px;
+        }
+    </style>
+</head>
+<body class="selection-orange">
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 z-[100] bg-[#F5F1EA] flex flex-col items-center justify-center p-12 transition-opacity duration-1000">
+        <div class="w-full max-w-md">
+            <div class="flex justify-between items-end mb-4">
+                <div class="flex gap-[2px]">
+                    <div class="w-4 h-4 bg-black rounded-[2px]"></div>
+                    <div class="w-4 h-4 bg-black rounded-full"></div>
+                    <div class="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[16px] border-b-black"></div>
+                </div>
+                <span id="loader-progress" class="text-4xl font-bold tracking-tighter tabular-nums">0%</span>
+            </div>
+            <div class="h-[2px] w-full bg-black/10 relative overflow-hidden">
+                <div id="loader-bar" class="h-full bg-black absolute left-0 top-0 w-0 transition-all duration-300"></div>
+            </div>
+            <div class="mt-8 overflow-hidden">
+                <p class="text-xs uppercase tracking-[0.3em] font-bold opacity-30 text-center animate-pulse">Initializing creative environment</p>
+            </div>
+        </div>
+        <div class="absolute bottom-12 left-12">
+            <p class="text-[10px] uppercase tracking-widest opacity-20 transform -rotate-90 origin-left">Nihanshi Goyal Portfolio v1.0</p>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-6 md:px-12 bg-[#F5F1EA]/80 backdrop-blur-sm">
+        <a href="#hero" id="navbar-logo" class="flex items-center gap-2 cursor-pointer group">
+            <div class="flex gap-[2px] items-center">
+                <div class="w-4 h-4 bg-black rounded-[2px] group-hover:bg-[#FF8A00] transition-colors"></div>
+                <div class="w-4 h-4 bg-black rounded-full group-hover:bg-[#FF8A00] transition-colors"></div>
+                <div class="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[16px] border-b-black group-hover:border-b-[#FF8A00] transition-colors"></div>
+                <span class="ml-4 font-bold tracking-tighter text-lg group-hover:text-[#FF8A00] transition-colors">Nihanshi</span>
+            </div>
+        </a>
+
+        <div class="flex items-center gap-6 md:gap-10 text-xs uppercase tracking-widest font-medium">
+            <a href="#work" class="hover:text-[#FF8A00] transition-colors relative group hidden sm:block">
+                Work
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#FF8A00] transition-all group-hover:w-full"></span>
+            </a>
+            <a href="#about" class="hover:text-[#FF8A00] transition-colors relative group hidden sm:block">
+                About
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#FF8A00] transition-all group-hover:w-full"></span>
+            </a>
+            <a href="#experience" class="hover:text-[#FF8A00] transition-colors relative group hidden sm:block">
+                Experience
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#FF8A00] transition-all group-hover:w-full"></span>
+            </a>
+            <a href="#resume" class="hover:text-[#FF8A00] transition-colors relative group flex items-center gap-1">
+                Resume
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#FF8A00] transition-all group-hover:w-full"></span>
+            </a>
+            <a href="#contact" class="px-5 py-2 bg-[#FF8A00] text-white rounded-full hover:bg-black transition-colors shadow-lg shadow-[#FF8A00]/20">
+                Contact
+            </a>
+        </div>
+    </nav>
+
+    <main id="main-content" class="relative bg-[#F5F1EA] perspective-1000 opacity-0 transition-opacity duration-1000">
+        <!-- Global Background Video -->
+        <div class="fixed inset-0 z-0 pointer-events-none opacity-[0.03]">
+            <video src="input_file_0.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video>
+        </div>
+
+        <!-- Hero Section -->
+        <section id="hero" class="relative h-[200vh] w-full">
+            <div class="sticky top-0 h-screen w-full overflow-hidden bg-[#F5F1EA] perspective-1500">
+                <canvas id="hero-canvas" class="h-full w-full object-cover"></canvas>
+                
+                <div id="hero-text" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none px-6">
+                    <div class="text-center">
+                        <h1 class="text-5xl md:text-8xl font-bold tracking-tighter mb-4 flex flex-col md:block">
+                            <span>Nihanshi</span> <span class="text-[#FF8A00]">Goyal</span>
+                        </h1>
+                        <div class="flex flex-wrap items-center justify-center gap-2 md:gap-4 text-lg md:text-2xl text-[#1F1F1F]/40 font-medium tracking-tight">
+                            <span>B.Tech in IT</span>
+                            <span class="w-1 md:w-2 h-1 md:h-2 bg-[#FF8A00] rounded-full"></span>
+                            <span>Incoming Intern @ Barclays</span>
+                            <span class="w-1 md:w-2 h-1 md:h-2 bg-[#FF8A00] rounded-full"></span>
+                            <span>AI & ML Enthusiast</span>
+                        </div>
+
+                        <div class="mt-12 flex gap-4 justify-center pointer-events-auto">
+                            <a href="#work" class="px-8 py-3 bg-black text-white rounded-full font-bold hover:bg-[#FF8A00] transition-colors">
+                                View Projects
+                            </a>
+                            <a href="#contact" class="px-8 py-3 bg-white border border-black/10 rounded-full font-bold hover:bg-[#F5F1EA] transition-colors">
+                                Contact Me
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scroll Indicator -->
+                <div id="scroll-indicator" class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
+                    <span class="text-[10px] uppercase tracking-[0.4em] font-bold opacity-30">Scroll Down</span>
+                    <div class="w-[1px] h-12 bg-gradient-to-b from-black to-transparent"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="relative z-10 py-24 px-8 md:px-20 bg-white">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+                <div class="reveal-left">
+                    <h2 class="text-5xl md:text-8xl font-bold tracking-tight leading-[0.9] mb-12">
+                        SHAPING THE <br />
+                        <span class="text-[#FF8A00] italic">FUTURE</span> <br />
+                        OF FINTECH.
+                    </h2>
+                    <div class="flex gap-8 items-start">
+                        <div class="w-px h-24 bg-black/10 mt-2"></div>
+                        <p class="text-xl md:text-2xl text-[#1F1F1F]/70 leading-relaxed max-w-md font-medium">
+                            Computer Science undergraduate at Banasthali Vidyapith. I focus on AI-driven solutions for fraud detection, regulatory automation, and high-volume financial data processing.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative reveal-right">
+                    <div class="aspect-[4/5] bg-[#ECE7DE] rounded-3xl overflow-hidden relative z-10 shadow-2xl">
+                        <img src="input_file_2.png" alt="Nihanshi Goyal" class="w-full h-full object-cover transition-all duration-1000">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-10">
+                            <div class="flex flex-col">
+                                <p class="text-white text-xs uppercase tracking-[0.3em] font-bold mb-1">Incoming Intern</p>
+                                <p class="text-[#FF8A00] text-lg font-bold">Barclays India @ 2027</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Parallax Shape -->
+                    <div class="parallax-shape absolute -top-10 -right-10 w-64 h-64 bg-[#FF8A00]/10 rounded-full blur-3xl -z-0"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="bg-white py-32 px-8 md:px-20">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex justify-between items-end mb-12">
+                    <h2 class="text-sm font-black uppercase tracking-[0.6em] text-[#FF8A00]">Professional Journey</h2>
+                    <a href="#resume" class="text-xs font-bold uppercase tracking-widest px-6 py-2 border border-black/10 rounded-full hover:bg-black hover:text-white transition-all">
+                        View Full CV
+                    </a>
+                </div>
+                <div class="space-y-24">
+                    <div class="experience-card grid md:grid-cols-[1fr_2fr] gap-12 items-start">
+                        <div>
+                            <span class="text-sm font-mono opacity-30">2027 Program</span>
+                            <h3 class="text-3xl font-bold mt-2">Barclays India</h3>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 bg-[#F5F1EA] rounded-full opacity-80">Hack-O-Hire Finalist</span>
+                                <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 bg-[#F5F1EA] rounded-full opacity-80">Scalable Architectures</span>
+                                <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 bg-[#F5F1EA] rounded-full opacity-80">Financial Backend</span>
+                            </div>
+                        </div>
+                        <div class="relative pl-12 border-l border-black/5">
+                            <div class="absolute top-0 left-0 w-2 h-2 rounded-full -translate-x-1/2 bg-[#243B7A]"></div>
+                            <h4 class="text-xl font-medium mb-4">Incoming Software Engineering Intern</h4>
+                            <p class="text-lg text-[#1F1F1F]/60 max-w-xl">Selected via competitive Hack-O-Hire process. Will focus on high-volume financial data processing, fraud detection pipelines, and exposure to AML compliance systems and risk analytics.</p>
+                        </div>
+                    </div>
+                    <div class="experience-card grid md:grid-cols-[1fr_2fr] gap-12 items-start">
+                        <div>
+                            <span class="text-sm font-mono opacity-30">2024 - Present</span>
+                            <h3 class="text-3xl font-bold mt-2">Independent Projects</h3>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 bg-[#F5F1EA] rounded-full opacity-80">Workflow Automation</span>
+                                <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 bg-[#F5F1EA] rounded-full opacity-80">AI Integration</span>
+                                <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 bg-[#F5F1EA] rounded-full opacity-80">Full-Stack</span>
+                            </div>
+                        </div>
+                        <div class="relative pl-12 border-l border-black/5">
+                            <div class="absolute top-0 left-0 w-2 h-2 rounded-full -translate-x-1/2 bg-[#FF8A00]"></div>
+                            <h4 class="text-xl font-medium mb-4">Freelance Technical Lead</h4>
+                            <p class="text-lg text-[#1F1F1F]/60 max-w-xl">Architecting and delivering full-stack solutions for various clients. Specialized in automated workflows and AI integration for productivity tools (ThinkDesk AI).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="bg-white py-32 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="stat-card flex flex-col items-center justify-center py-16 bg-[#F5F1EA] rounded-3xl">
+                        <span class="text-7xl md:text-9xl font-bold tracking-tighter leading-none mb-4 text-[#FF8A00]">8.25</span>
+                        <p class="text-xs md:text-sm uppercase tracking-[0.5em] font-black opacity-20">B.Tech CGPA</p>
+                    </div>
+                    <div class="stat-card flex flex-col items-center justify-center py-16 bg-[#F5F1EA] rounded-3xl">
+                        <span class="text-7xl md:text-9xl font-bold tracking-tighter leading-none mb-4 text-black">91.4</span>
+                        <p class="text-xs md:text-sm uppercase tracking-[0.5em] font-black opacity-20">CBSE XII %</p>
+                    </div>
+                    <div class="stat-card flex flex-col items-center justify-center py-16 bg-[#F5F1EA] rounded-3xl">
+                        <span class="text-7xl md:text-9xl font-bold tracking-tighter leading-none mb-4 text-black">03</span>
+                        <p class="text-xs md:text-sm uppercase tracking-[0.5em] font-black opacity-20">MAJOR PROJECTS</p>
+                    </div>
+                </div>
+
+                <div id="achievements" class="mt-40">
+                    <div class="achievement-list grid grid-cols-1 gap-0">
+                        <div class="achievement-item flex justify-between items-center py-8 border-b border-black/5 group cursor-default">
+                            <div class="flex items-center gap-6">
+                                <span class="text-sm font-mono opacity-20">01</span>
+                                <span class="text-2xl md:text-4xl font-medium group-hover:translate-x-4 transition-transform duration-500">Smart India Hackathon (Internal Round) Winner</span>
+                            </div>
+                            <span class="text-sm font-bold opacity-30 px-4 py-1 border border-black/10 rounded-full">2025</span>
+                        </div>
+                        <div class="achievement-item flex justify-between items-center py-8 border-b border-black/5 group cursor-default">
+                            <div class="flex items-center gap-6">
+                                <span class="text-sm font-mono opacity-20">02</span>
+                                <span class="text-2xl md:text-4xl font-medium group-hover:translate-x-4 transition-transform duration-500">Ideathon, MSC BV Winner</span>
+                            </div>
+                            <span class="text-sm font-bold opacity-30 px-4 py-1 border border-black/10 rounded-full">2024</span>
+                        </div>
+                        <div class="achievement-item flex justify-between items-center py-8 border-b border-black/5 group cursor-default">
+                            <div class="flex items-center gap-6">
+                                <span class="text-sm font-mono opacity-20">03</span>
+                                <span class="text-2xl md:text-4xl font-medium group-hover:translate-x-4 transition-transform duration-500">Mayukh Pixel Play Winner</span>
+                            </div>
+                            <span class="text-sm font-bold opacity-30 px-4 py-1 border border-black/10 rounded-full">2024</span>
+                        </div>
+                        <div class="achievement-item flex justify-between items-center py-8 border-b border-black/5 group cursor-default">
+                            <div class="flex items-center gap-6">
+                                <span class="text-sm font-mono opacity-20">04</span>
+                                <span class="text-2xl md:text-4xl font-medium group-hover:translate-x-4 transition-transform duration-500">HackCelestia National Hackathon Participant</span>
+                            </div>
+                            <span class="text-sm font-bold opacity-30 px-4 py-1 border border-black/10 rounded-full">2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="work" class="py-32 px-8 md:px-20 bg-[#F5F1EA]">
+            <div class="max-w-6xl mx-auto space-y-32">
+                <!-- Project 1 -->
+                <div class="project-card group relative perspective-1500" data-id="01">
+                    <div class="absolute -left-10 md:-left-20 -top-10 md:-top-20 text-[10rem] md:text-[20rem] font-black text-black/[0.03] select-none pointer-events-none group-hover:text-[#AFCDFF]/10 transition-colors duration-700 font-mono tracking-tighter">01</div>
+                    <div class="relative z-10 bg-white/40 backdrop-blur-md border border-black/5 rounded-[40px] p-8 md:p-20 shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:shadow-[0_40px_100px_rgba(255,138,0,0.1)] transition-all duration-700 group-hover:-translate-y-4">
+                        <div class="max-w-3xl">
+                            <span class="text-xs font-bold text-[#FF8A00] mb-4 block tracking-[0.4em] uppercase">01 / PROJECT</span>
+                            <h3 class="text-4xl md:text-7xl font-semibold tracking-tighter mb-8 group-hover:text-[#243B7A] transition-colors duration-500">SAR Narrative Generation</h3>
+                            <p class="text-[#1F1F1F]/60 text-lg md:text-2xl leading-relaxed mb-10 font-medium max-w-2xl">Built an AI system to generate regulatory-compliant SARs from financial transaction data. Designed a risk scoring engine and implemented audit trails for compliance.</p>
+                            <div class="flex flex-wrap gap-3 mb-12">
+                                <span class="px-6 py-2 bg-[#ECE7DE] text-[#1F1F1F]/80 text-[11px] uppercase tracking-widest font-bold rounded-full">C++</span>
+                                <span class="px-6 py-2 bg-[#ECE7DE] text-[#1F1F1F]/80 text-[11px] uppercase tracking-widest font-bold rounded-full">NLP</span>
+                                <span class="px-6 py-2 bg-[#ECE7DE] text-[#1F1F1F]/80 text-[11px] uppercase tracking-widest font-bold rounded-full">Regulatory Tech</span>
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-6">
+                                <a href="https://github.com/NihanshiGoyal/SAR-with-Audit-Trail" target="_blank" class="px-10 py-4 border-2 border-[#1F1F1F] rounded-full text-xs font-black hover:bg-[#1F1F1F] hover:text-white transition-all text-center tracking-widest">REPOSITORY</a>
+                                <a href="https://github.com/NihanshiGoyal/SAR-with-Audit-Trail" target="_blank" class="px-10 py-4 bg-[#FF8A00] text-white rounded-full text-xs font-black shadow-2xl shadow-[#FF8A00]/20 hover:bg-[#243B7A] transition-all text-center tracking-widest">LIVE SOLUTION</a>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-transparent via-[#AFCDFF]/5 to-[#FF8A00]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none rounded-[40px]"></div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card group relative perspective-1500" data-id="02">
+                    <div class="absolute -left-10 md:-left-20 -top-10 md:-top-20 text-[10rem] md:text-[20rem] font-black text-black/[0.03] select-none pointer-events-none group-hover:text-[#AFCDFF]/10 transition-colors duration-700 font-mono tracking-tighter">02</div>
+                    <div class="relative z-10 bg-white/40 backdrop-blur-md border border-black/5 rounded-[40px] p-8 md:p-20 shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:shadow-[0_40px_100px_rgba(255,138,0,0.1)] transition-all duration-700 group-hover:-translate-y-4">
+                        <div class="max-w-3xl">
+                            <span class="text-xs font-bold text-[#FF8A00] mb-4 block tracking-[0.4em] uppercase">02 / PROJECT</span>
+                            <h3 class="text-4xl md:text-7xl font-semibold tracking-tighter mb-8 group-hover:text-[#243B7A] transition-colors duration-500">ThinkDesk AI - Productivity</h3>
+                            <p class="text-[#1F1F1F]/60 text-lg md:text-2xl leading-relaxed mb-10 font-medium max-w-2xl">Developed AI-based system to automate 1000+ tasks and communication workflows. Reduced manual workload by 40% using intelligent task prioritization.</p>
+                            <div class="flex flex-wrap gap-3 mb-12">
+                                <span class="px-6 py-2 bg-[#ECE7DE] text-[#1F1F1F]/80 text-[11px] uppercase tracking-widest font-bold rounded-full">HTML</span>
+                                <span class="px-6 py-2 bg-[#ECE7DE] text-[#1F1F1F]/80 text-[11px] uppercase tracking-widest font-bold rounded-full">CSS</span>
+                                <span class="px-6 py-2 bg-[#ECE7DE] text-[#1F1F1F]/80 text-[11px] uppercase tracking-widest font-bold rounded-full">AI</span>
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-6">
+                                <a href="https://github.com/NihanshiGoyal/ThinkDeskAI" target="_blank" class="px-10 py-4 border-2 border-[#1F1F1F] rounded-full text-xs font-black hover:bg-[#1F1F1F] hover:text-white transition-all text-center tracking-widest">REPOSITORY</a>
+                                <a href="https://think-desk-git-master-ehnas-projects.vercel.app/" target="_blank" class="px-10 py-4 bg-[#FF8A00] text-white rounded-full text-xs font-black shadow-2xl shadow-[#FF8A00]/20 hover:bg-[#243B7A] transition-all text-center tracking-widest">LIVE SOLUTION</a>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-transparent via-[#AFCDFF]/5 to-[#FF8A00]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none rounded-[40px]"></div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card group relative perspective-1500" data-id="03">
+                    <div class="absolute -left-10 md:-left-20 -top-10 md:-top-20 text-[10rem] md:text-[20rem] font-black text-black/[0.03] select-none pointer-events-none group-hover:text-[#AFCDFF]/10 transition-colors duration-700 font-mono tracking-tighter">03</div>
+                    <div class="relative z-10 bg-white/40 backdrop-blur-md border border-black/5 rounded-[40px] p-8 md:p-20 shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:shadow-[0_40px_100px_rgba(255,138,0,0.1)] transition-all duration-700 group-hover:-translate-y-4">
+                        <div class="max-w-3xl">
+                            <span class="text-xs font-bold text-[#FF8A00] mb-4 block tracking-[0.4em] uppercase">03 / PROJECT</span>
+                            <h3 class="text-4xl md:text-7xl font-semibold tracking-tighter mb-8 group-hover:text-[#243B7A] transition-colors duration-500">JanSetu - Civic-Tech</h3>
+                            <p class="text-[#1F1F1F]/60 text-lg md:text-2xl leading-relaxed mb-10 font-medium max-w-2xl">Built real-time issue reporting platform connecting citizens with authorities. Improved resolution efficiency by 35% through structured workflows.</p>
+                            <div class="flex flex-wrap gap-3 mb-12">
+                                <span class="px-6 py-2 bg-[#ECE7DE] text-[#1F1F1F]/80 text-[11px] uppercase tracking-widest font-bold rounded-full">React</span>
+                                <span class="px-6 py-2 bg-[#ECE7DE] text-[#1F1F1F]/80 text-[11px] uppercase tracking-widest font-bold rounded-full">JavaScript</span>
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-6">
+                                <a href="https://github.com/NihanshiGoyal/JanSetu" target="_blank" class="px-10 py-4 border-2 border-[#1F1F1F] rounded-full text-xs font-black hover:bg-[#1F1F1F] hover:text-white transition-all text-center tracking-widest">REPOSITORY</a>
+                                <a href="https://jansetu-portal.vercel.app/" target="_blank" class="px-10 py-4 bg-[#FF8A00] text-white rounded-full text-xs font-black shadow-2xl shadow-[#FF8A00]/20 hover:bg-[#243B7A] transition-all text-center tracking-widest">LIVE SOLUTION</a>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-transparent via-[#AFCDFF]/5 to-[#FF8A00]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none rounded-[40px]"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resume Section -->
+        <section id="resume" class="py-48 px-8 md:px-20 bg-[#1F1F1F] text-white">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-col md:flex-row gap-20 items-center justify-between">
+                    <div class="max-w-xl">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-12 h-12 bg-[#FF8A00] rounded-2xl flex items-center justify-center">
+                                <i data-lucide="file-text" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <h2 class="text-sm font-black uppercase tracking-[0.4em] text-[#FF8A00]">Curriculum Vitae</h2>
+                        </div>
+                        <h3 class="text-4xl md:text-7xl font-bold tracking-tight mb-8 leading-[0.9]">PROFESSIONAL <br /> BACKGROUND</h3>
+                        <p class="text-white/60 text-lg md:text-xl leading-relaxed mb-12 font-medium">Looking for a detailed breakdown of my skills and experience? You can view my interactive resume or download a PDF copy for your records.</p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-6">
+                            <a href="https://drive.google.com/file/d/1n5XQ0JxJ9CCcNFMydAYphRL7O8z00LSf/view?usp=drive_link" target="_blank" class="flex items-center justify-center gap-3 px-10 py-5 bg-[#FF8A00] text-white rounded-full font-bold text-lg hover:bg-white hover:text-black transition-all transform hover:-translate-y-1 shadow-2xl shadow-black/20">
+                                <i data-lucide="eye" class="w-5 h-5"></i>
+                                View Resume
+                            </a>
+                            <a href="https://drive.google.com/file/d/1n5XQ0JxJ9CCcNFMydAYphRL7O8z00LSf/view?usp=drive_link" target="_blank" class="flex items-center justify-center gap-3 px-10 py-5 border border-white/20 rounded-full font-bold text-lg hover:bg-white hover:text-black transition-all transform hover:-translate-y-1">
+                                <i data-lucide="download" class="w-5 h-5"></i>
+                                Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plane Morph Section -->
+        <section class="relative h-[300vh] w-full bg-[#1F1F1F]">
+            <div class="sticky top-0 h-screen w-full flex items-center justify-center p-8 md:p-20 overflow-hidden">
+                <div class="relative w-full h-full max-w-5xl aspect-video rounded-3xl overflow-hidden border border-white/10">
+                    <canvas id="morph-canvas" class="w-full h-full object-cover grayscale brightness-75"></canvas>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-white text-center">
+                        <h2 id="morph-text" class="text-4xl md:text-6xl font-medium tracking-tight opacity-0">
+                            TRANSFORMING <span class="text-[#FF8A00]">DATA</span> <br />
+                            INTO IMPACT
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="py-32 px-8 md:px-20 bg-white">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-20">
+                    <div class="skill-item flex flex-col items-center text-center group">
+                        <div class="w-16 h-16 mb-6 flex items-center justify-center text-[#1F1F1F]/40 group-hover:text-[#FF8A00] transition-colors">
+                            <i data-lucide="code-2" size="40" stroke-width="1.5"></i>
+                        </div>
+                        <h3 class="text-sm uppercase tracking-widest font-bold text-[#1F1F1F]">C++</h3>
+                    </div>
+                    <div class="skill-item flex flex-col items-center text-center group">
+                        <div class="w-16 h-16 mb-6 flex items-center justify-center text-[#1F1F1F]/40 group-hover:text-[#FF8A00] transition-colors">
+                            <i data-lucide="hash" size="40" stroke-width="1.5"></i>
+                        </div>
+                        <h3 class="text-sm uppercase tracking-widest font-bold text-[#1F1F1F]">Python</h3>
+                    </div>
+                    <div class="skill-item flex flex-col items-center text-center group">
+                        <div class="w-16 h-16 mb-6 flex items-center justify-center text-[#1F1F1F]/40 group-hover:text-[#FF8A00] transition-colors">
+                            <i data-lucide="code-2" size="40" stroke-width="1.5"></i>
+                        </div>
+                        <h3 class="text-sm uppercase tracking-widest font-bold text-[#1F1F1F]">JavaScript</h3>
+                    </div>
+                    <div class="skill-item flex flex-col items-center text-center group">
+                        <div class="w-16 h-16 mb-6 flex items-center justify-center text-[#1F1F1F]/40 group-hover:text-[#FF8A00] transition-colors">
+                            <i data-lucide="palette" size="40" stroke-width="1.5"></i>
+                        </div>
+                        <h3 class="text-sm uppercase tracking-widest font-bold text-[#1F1F1F]">Tailwind CSS</h3>
+                    </div>
+                    <div class="skill-item flex flex-col items-center text-center group">
+                        <div class="w-16 h-16 mb-6 flex items-center justify-center text-[#1F1F1F]/40 group-hover:text-[#FF8A00] transition-colors">
+                            <i data-lucide="shield" size="40" stroke-width="1.5"></i>
+                        </div>
+                        <h3 class="text-sm uppercase tracking-widest font-bold text-[#1F1F1F]">System Design</h3>
+                    </div>
+                    <div class="skill-item flex flex-col items-center text-center group">
+                        <div class="w-16 h-16 mb-6 flex items-center justify-center text-[#1F1F1F]/40 group-hover:text-[#FF8A00] transition-colors">
+                            <i data-lucide="brain" size="40" stroke-width="1.5"></i>
+                        </div>
+                        <h3 class="text-sm uppercase tracking-widest font-bold text-[#1F1F1F]">Data Structures</h3>
+                    </div>
+                    <div class="skill-item flex flex-col items-center text-center group">
+                        <div class="w-16 h-16 mb-6 flex items-center justify-center text-[#1F1F1F]/40 group-hover:text-[#FF8A00] transition-colors">
+                            <i data-lucide="shield" size="40" stroke-width="1.5"></i>
+                        </div>
+                        <h3 class="text-sm uppercase tracking-widest font-bold text-[#1F1F1F]">DBMS</h3>
+                    </div>
+                    <div class="skill-item flex flex-col items-center text-center group">
+                        <div class="w-16 h-16 mb-6 flex items-center justify-center text-[#1F1F1F]/40 group-hover:text-[#FF8A00] transition-colors">
+                            <i data-lucide="code-2" size="40" stroke-width="1.5"></i>
+                        </div>
+                        <h3 class="text-sm uppercase tracking-widest font-bold text-[#1F1F1F]">Git / GitHub</h3>
+                    </div>
+                </div>
+
+                <div class="mt-40 grid md:grid-cols-2 gap-20 items-start">
+                    <div class="max-w-md education-reveal">
+                        <h2 class="text-4xl font-bold tracking-tight mb-8 underline decoration-[#FF8A00] decoration-4 underline-offset-8">Education</h2>
+                        <div class="space-y-12">
+                            <div>
+                                <h3 class="text-xl font-bold">Banasthali Vidyapith</h3>
+                                <p class="text-sm opacity-70 font-bold">B.Tech in Information Technology / 2024–2026</p>
+                                <div class="mt-2 flex items-center gap-2">
+                                    <span class="px-3 py-1 bg-black text-white text-[11px] font-bold rounded-full">CGPA: 8.25</span>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="text-sm font-bold uppercase tracking-widest opacity-40 mb-2">Class XII (CBSE)</h4>
+                                    <p class="text-2xl font-bold">91.4%</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold uppercase tracking-widest opacity-40 mb-2">Class X (CBSE)</h4>
+                                    <p class="text-2xl font-bold">91.4%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="max-w-md md:ml-auto research-reveal">
+                        <h2 class="text-4xl font-bold tracking-tight mb-8">Research <br /> <span class="text-[#FF8A00]">Interests</span></h2>
+                        <ul class="space-y-4 text-[#1F1F1F]/70 font-medium border-l-2 border-black/5 pl-8">
+                            <li>• Computer Vision & Image Processing</li>
+                            <li>• AI-based Surveillance & Threat Detection</li>
+                            <li>• Autonomous Systems using Computer Vision</li>
+                            <li>• Pattern Recognition & Intelligent Monitoring</li>
+                            <li>• Safety and Security Systems powered by AI</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-40 grid md:grid-cols-2 gap-20 items-center video-reveal">
+                    <div class="aspect-[16/9] bg-black rounded-3xl overflow-hidden shadow-2xl relative">
+                        <video src="input_file_0.mp4" autoplay loop muted playsinline class="w-full h-full object-cover opacity-60"></video>
+                        <div class="absolute inset-0 bg-gradient-to-tr from-black/80 to-transparent flex flex-col justify-end p-12">
+                           <span class="text-[#FF8A00] font-black text-xs tracking-[0.4em] mb-4">REVOLUTIONIZING FINTECH</span>
+                           <h3 class="text-white text-3xl font-bold tracking-tight">Focusing on high-volume financial data & scalable architectures.</h3>
+                        </div>
+                    </div>
+                    <div class="max-w-md">
+                        <h2 class="text-4xl font-bold tracking-tight mb-6">Innovative Backend Systems</h2>
+                        <p class="text-[#1F1F1F]/60 leading-relaxed font-medium">
+                            Passionate about fraud detection pipelines and building robust API-driven ecosystems that prioritize security and efficiency.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-32 px-8 md:px-20 bg-white">
+            <div class="max-w-4xl mx-auto text-center mb-20 animate-on-scroll">
+                <h2 class="text-4xl md:text-6xl font-medium tracking-tight mb-4">Let's Connect</h2>
+                <p class="text-xl text-[#1F1F1F]/50">Reach out for projects, collabs, or a chat!</p>
+            </div>
+
+            <div class="max-w-xl mx-auto">
+                <form class="space-y-8" onsubmit="event.preventDefault()">
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest font-bold opacity-40">Name</label>
+                        <input type="text" placeholder="Jane Smith" class="w-full bg-[#F5F1EA] border-none rounded-2xl p-6 focus:ring-2 focus:ring-[#FF8A00] outline-none transition-all">
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest font-bold opacity-40">Email</label>
+                        <input type="email" placeholder="jane@example.com" class="w-full bg-[#F5F1EA] border-none rounded-2xl p-6 focus:ring-2 focus:ring-[#FF8A00] outline-none transition-all">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest font-bold opacity-40">Message</label>
+                        <textarea placeholder="Your message..." rows="4" class="w-full bg-[#F5F1EA] border-none rounded-2xl p-6 focus:ring-2 focus:ring-[#FF8A00] outline-none transition-all resize-none"></textarea>
+                    </div>
+
+                    <button class="w-full py-6 bg-black text-white rounded-2xl font-bold hover:bg-[#FF8A00] transition-all transform hover:scale-[1.02] active:scale-[0.98]">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="relative min-h-screen w-full bg-[#1F1F1F] text-white flex flex-col justify-between p-8 md:p-20 overflow-hidden">
+            <!-- Globe Visualization -->
+            <div class="absolute inset-0 z-0 opacity-20 pointer-events-none overflow-hidden">
+                <video src="input_file_0.mp4" autoplay loop muted playsinline class="w-full h-full object-cover scale-110 blur-[2px]"></video>
+                <div class="absolute inset-0 bg-gradient-to-b from-[#1F1F1F] via-transparent to-[#1F1F1F]"></div>
+            </div>
+
+            <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-end w-full">
+                <div class="max-w-2xl footer-reveal">
+                    <h2 class="text-5xl md:text-8xl font-medium tracking-tight mb-12">LET'S CRAFT SOMETHING <span class="text-[#FF8A00]">UNIQUE</span></h2>
+                    <div class="flex flex-col gap-4">
+                        <a href="mailto:nihanshigoyal11@gmail.com" class="group flex items-center gap-4 text-xl md:text-2xl hover:text-[#FF8A00] transition-colors">
+                            <i data-lucide="mail" class="w-6 h-6"></i>
+                            <span>nihanshigoyal11@gmail.com</span>
+                            <div class="h-[1px] w-0 group-hover:w-full bg-[#FF8A00] transition-all duration-500"></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 mt-12 md:mt-0 social-reveal">
+                    <a href="https://github.com/NihanshiGoyal" target="_blank" class="p-3 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all">
+                        <i data-lucide="github" class="w-6 h-6"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/nihanshi-goyal-416485324/" target="_blank" class="p-3 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all">
+                        <i data-lucide="linkedin" class="w-6 h-6"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="relative z-10 pt-20 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs uppercase tracking-widest opacity-50 gap-4">
+                <p>© 2026 NIHANSHI GOYAL. ALL RIGHTS RESERVED.</p>
+                <div class="flex gap-8">
+                    <a href="#" class="hover:opacity-100 transition-opacity">Privacy Policy</a>
+                    <a href="#" class="hover:opacity-100 transition-opacity">Terms of Service</a>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>
