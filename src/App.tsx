@@ -8,6 +8,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import React from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroScroll } from './components/HeroScroll';
 import { PlaneMorph } from './components/PlaneMorph';
@@ -21,6 +22,7 @@ import { LoadingScreen } from './components/LoadingScreen';
 import { useImagePreloader } from './hooks/useImagePreloader';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect } from 'react';
+import profileImage from '/profile.jpeg';
 
 // Generating mock frame paths (Using external images as fallback if local ones don't exist)
 const heroFrames = Array.from({ length: 30 }, (_, i) => 
@@ -110,10 +112,7 @@ export default function App() {
               >
                 <div className="relative aspect-[4/5] bg-[#ECE7DE] rounded-3xl overflow-hidden z-10 shadow-2xl">
                   <img 
-                    src="input_file_2.png" 
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = "input_file_1.png";
-                    }}
+                    src="profile.jpeg" 
                     alt="Nihanshi Goyal"
                     className="w-full h-full object-cover hover:grayscale-0 transition-all duration-1000"
                   />
