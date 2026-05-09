@@ -80,7 +80,7 @@ export default function App() {
           whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
           viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 py-48 px-8 md:px-20 bg-white"
+          className="relative z-10 py-20 px-8 md:px-20 bg-white"
         >
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
             <motion.div
@@ -143,7 +143,7 @@ export default function App() {
         </motion.section>
 
         {/* Experience Section */}
-        <section id="experience" className="bg-white py-32 px-8 md:px-20">
+       <section id="experience" className="bg-white py-12 px-8 md:px-20">
           <div className="max-w-6xl mx-auto">
             <div className="flex justify-between items-end mb-12">
               <h2 className="text-sm font-black uppercase tracking-[0.6em] text-[#FF8A00]">Professional Journey</h2>

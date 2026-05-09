@@ -5,7 +5,7 @@ import { Globe } from './Globe';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="relative min-h-screen w-full bg-[#1F1F1F] text-white flex flex-col justify-between p-8 md:p-20 overflow-hidden">
+    <footer className="relative min-h-[70vh] w-full bg-[#1F1F1F] text-white flex flex-col justify-between p-8 md:p-20 overflow-hidden">
       {/* Background visual element */}
       <Globe />
 

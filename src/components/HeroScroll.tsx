@@ -70,7 +70,7 @@ export const HeroScroll: React.FC<HeroScrollProps> = ({ frames }) => {
   }, [images, loading, frameIndex]);
 
   return (
-    <div ref={containerRef} className="relative h-[500vh] w-full">
+    <div ref={containerRef} className="relative h-[200vh] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#F5F1EA] perspective-[1500px]">
         <motion.canvas 
           ref={canvasRef} 
