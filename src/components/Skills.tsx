@@ -48,11 +48,11 @@ export const Skills: React.FC = () => {
               <div className="grid grid-cols-2 gap-6">
                 <div>
                   <h4 className="text-sm font-bold uppercase tracking-widest opacity-40 mb-2">Class XII (CBSE)</h4>
-                  <p className="text-2xl font-bold">91.4%</p>
+                  <p className="text-2xl font-bold">85.6%</p>
                 </div>
                 <div>
                   <h4 className="text-sm font-bold uppercase tracking-widest opacity-40 mb-2">Class X (CBSE)</h4>
-                  <p className="text-2xl font-bold">91.4%</p>
+                  <p className="text-2xl font-bold">91.6%</p>
                 </div>
               </div>
             </div>

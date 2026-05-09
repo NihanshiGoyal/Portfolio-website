@@ -91,13 +91,13 @@ export default function App() {
             >
               <h2 className="text-5xl md:text-8xl font-bold tracking-tight leading-[0.9] mb-12">
                 SHAPING THE <br />
-                <span className="text-[#FF8A00] italic">FUTURE</span> <br />
-                OF FINTECH.
+                <span className="text-[#FF8A00] italic">IDEAS</span> <br />
+                TO IMPACT.
               </h2>
               <div className="flex gap-8 items-start">
                 <div className="w-px h-24 bg-black/10 mt-2" />
                 <p className="text-xl md:text-2xl text-[#1F1F1F]/70 leading-relaxed max-w-md font-medium">
-                  Computer Science undergraduate at Banasthali Vidyapith. I focus on AI-driven solutions for fraud detection, regulatory automation, and high-volume financial data processing.
+                  Information Technology undergraduate at Banasthali Vidyapith. I focus on AI-driven solutions for fraud detection, regulatory automation, and high-volume financial data processing.
                 </p>
               </div>
             </motion.div>
@@ -208,7 +208,7 @@ export default function App() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
                 { count: "8.25", label: "B.Tech CGPA", color: "text-[#FF8A00]" },
-                { count: "91.4", label: "CBSE XII %", color: "text-black" },
+                { count: "85.6", label: "CBSE XII %", color: "text-black" },
                 { count: "03", label: "MAJOR PROJECTS", color: "text-black" }
               ].map((stat, i) => (
                 <motion.div 
